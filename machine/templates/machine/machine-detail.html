@@ -327,15 +327,16 @@
         lightboxImages = [];
 
         // Add cover image
-        const coverImage = '{{ machine.cover_image.url }}';
-        if (coverImage) {
-            lightboxImages.push(coverImage);
-        }
+        {% if machine.cover_image %}
+        lightboxImages.push('{{ machine.cover_image.url }}');
+        {% endif %}
 
         // Add additional images
-        {% for img in images %}
+        {% if images %}
+            {% for img in images %}
             lightboxImages.push('{{ img.image.url }}');
-        {% endfor %}
+            {% endfor %}
+        {% endif %}
 
         // Update total images count
         document.getElementById('totalImages').textContent = lightboxImages.length;

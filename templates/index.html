@@ -139,13 +139,9 @@
                         <div class="font-bold text-indigo-600">฿{{ machine.price|intcomma }}</div>
                     </div>
 
-                    <form action="{% url 'machine_detail' machine.slug %}" method="post" class="mt-3 relative z-20">
-                        {% csrf_token %}
-                        <input type="hidden" name="quantity" value="1">
-                        <button type="submit" class="w-full bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-black transition flex items-center justify-center">
-                            <i class="fas fa-cart-plus mr-2"></i>รายละเอียดเพิ่มเติม
-                        </button>
-                    </form>
+                    <a href="{% url 'machine_detail' machine.slug %}" class="mt-3 relative z-20 block w-full bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-black transition text-center">
+                        <i class="fas fa-eye mr-2"></i>รายละเอียดเพิ่มเติม
+                    </a>
 
                     <!-- Additional Images Indicator -->
                     {% if machine.covers_images.count > 0 %}
