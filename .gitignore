@@ -57,5 +57,7 @@ Thumbs.db
 *.ppkebook_openssh
 *.ppk
 ebook_openssh
+machine_openssh
+machine_openssh.pub
 
 *.txt
