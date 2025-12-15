@@ -8,10 +8,10 @@ from .base import *
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",")
+ALLOWED_HOSTS = [host for host in os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",") if host] + ["machinebkk.com", "www.machinebkk.com", "129.212.238.63"]
 
 # CSRF trusted origins
-CSRF_TRUSTED_ORIGINS = os.environ.get("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",")
+CSRF_TRUSTED_ORIGINS = [url for url in os.environ.get("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",") if url] + ["https://machinebkk.com", "https://www.machinebkk.com", "https://129.212.238.63"]
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
