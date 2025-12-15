@@ -110,13 +110,13 @@ sudo apt install -y curl git vim htop
 
 ```bash
 # สร้าง user ใหม่
-adduser deploy
+adduser machine
 
 # เพิ่ม sudo privileges
-usermod -aG sudo deploy
+usermod -aG sudo machine
 
-# สลับเป็น user deploy
-su - deploy
+# สลับเป็น user machine
+su - machine
 ```
 
 ---
