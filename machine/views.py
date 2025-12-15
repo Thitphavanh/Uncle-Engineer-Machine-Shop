@@ -19,7 +19,6 @@ def index(request):
     return render(request, "index.html", context)
 
 
-@login_required(login_url="login")
 def machines(request):
     # Get filter parameters
     category_slug = request.GET.get("category", None)
@@ -60,7 +59,6 @@ def machines(request):
     return render(request, "machine/machines.html", context)
 
 
-@login_required(login_url="login")
 def machine_detail(request, slug):
     machine = get_object_or_404(Machine, slug=slug, is_available=True)
     # Get all images related to this machine
@@ -88,7 +86,6 @@ def categories(request):
     return render(request, "machine/categories.html", context)
 
 
-@login_required(login_url="login")
 def category_detail(request, slug):
     category = get_object_or_404(MachineCategory, slug=slug)
     machines = category.machines.filter(is_available=True).order_by("-id")

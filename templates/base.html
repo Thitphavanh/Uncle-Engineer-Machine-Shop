@@ -5,26 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO Meta Tags -->
-    <title>{% block title %}Uncle Machine Shop - แพลตฟอร์มเครื่องจักร{% endblock %}</title>
-    <meta name="description" content="{% block description %}Uncle Machine Shop แพลตฟอร์มเครื่องจักรและอุปกรณ์ชั้นนำของไทย มีเครื่องจักรมากกว่า 10,000 รายการ ครอบคลุมทุกหมวดหมู่ เข้าถึงได้ทุกที่ทุกเวลา{% endblock %}">
-    <meta name="keywords" content="{% block keywords %}เครื่องจักร, Machine, อุปกรณ์, Uncle Machine Shop, machine Thailand, เครื่องจักรออนไลน์{% endblock %}">
-    <meta name="author" content="Uncle Machine Shop">
+    <title>{% block title %}MachineBBK - แพลตฟอร์มเครื่องจักร{% endblock %}</title>
+    <meta name="description" content="{% block description %}MachineBBK แพลตฟอร์มเครื่องจักรและอุปกรณ์ชั้นนำของไทย มีเครื่องจักรมากกว่า 10,000 รายการ ครอบคลุมทุกหมวดหมู่ เข้าถึงได้ทุกที่ทุกเวลา{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}เครื่องจักร, Machine, อุปกรณ์, MachineBBK, machine Thailand, เครื่องจักรออนไลน์{% endblock %}">
+    <meta name="author" content="MachineBBK">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="{% block canonical %}{{ request.build_absolute_uri }}{% endblock %}">
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="{% block og_title %}Uncle Machine Shop - แพลตฟอร์มเครื่องจักรและอุปกรณ์ชั้นนำของไทย{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Uncle Machine Shop แพลตฟอร์มเครื่องจักรและอุปกรณ์ชั้นนำของไทย มีเครื่องจักรมากกว่า 10,000 รายการ{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}MachineBBK - แพลตฟอร์มเครื่องจักรและอุปกรณ์ชั้นนำของไทย{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}MachineBBK แพลตฟอร์มเครื่องจักรและอุปกรณ์ชั้นนำของไทย มีเครื่องจักรมากกว่า 10,000 รายการ{% endblock %}">
     <meta property="og:type" content="{% block og_type %}website{% endblock %}">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}/static/images/og-image.jpg{% endblock %}">
-    <meta property="og:site_name" content="Uncle Machine Shop">
+    <meta property="og:site_name" content="MachineBBK">
     <meta property="og:locale" content="th_TH">
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{% block twitter_title %}Uncle Machine Shop - แพลตฟอร์มเครื่องจักรและอุปกรณ์ชั้นนำของไทย{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}Uncle Machine Shop แพลตฟอร์มเครื่องจักรและอุปกรณ์ชั้นนำของไทย{% endblock %}">
+    <meta name="twitter:title" content="{% block twitter_title %}MachineBBK - แพลตฟอร์มเครื่องจักรและอุปกรณ์ชั้นนำของไทย{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}MachineBBK แพลตฟอร์มเครื่องจักรและอุปกรณ์ชั้นนำของไทย{% endblock %}">
     <meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}/static/images/og-image.jpg{% endblock %}">
 
     <!-- Additional SEO -->
@@ -128,13 +128,17 @@
                 <div class="flex items-center justify-between">
                     <!-- Logo -->
                     <a href="/" class="text-3xl font-bold tracking-tight">
-                        Uncle Machine Shop
+                        MachineBBK
                     </a>
 
                     <!-- Desktop Menu -->
                     <div class="hidden lg:flex items-center space-x-8">
+                        <a href="{% url 'contact' %}" class="text-red-600 hover:text-red-700 px-3 py-2 rounded-md text-sm font-bold ">
+                           </i>ลงขายเครื่องจักรฟรี
+                        </a>
                         <a href="{% url 'machines' %}" class="text-gray-500 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">เครื่องจักรทั้งหมด</a>
-                    <a href="{% url 'categories' %}" class="text-gray-500 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">หมวดหมู่</a>
+                        <a href="{% url 'categories' %}" class="text-gray-500 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">หมวดหมู่</a>
+                   
                     
                     
 
@@ -166,6 +170,9 @@
             <!-- Mobile Menu -->
             <div id="mobileMenu" class="mobile-menu lg:hidden border-t border-gray-100">
                 <div class="py-4 space-y-3">
+                    <a href="{% url 'contact' %}" class="text-red-600 hover:text-red-700 px-3 py-2 rounded-md text-sm font-bold">
+                        ลงขายเครื่องจักรฟรี
+                    </a>
                     <a href="{% url 'machines' %}" class="block py-2 text-base font-medium hover:bg-gray-50 px-4 rounded">เครื่องจักรทั้งหมด</a>
                     <a href="{% url 'categories' %}" class="block py-2 text-base font-medium hover:bg-gray-50 px-4 rounded">หมวดหมู่เครื่องจักร</a>
 
@@ -213,7 +220,7 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
                 <!-- Company Info -->
                 <div>
-                    <h3 class="text-2xl font-bold mb-4">Uncle Machine Shop</h3>
+                    <h3 class="text-2xl font-bold mb-4">MachineBBK</h3>
                     <p class="text-gray-600 mb-4">
                         แพลตฟอร์มเครื่องจักรและอุปกรณ์ชั้นนำของไทย
                     </p>
@@ -280,7 +287,7 @@
             
             <!-- Copyright -->
             <div class="border-t border-gray-200 pt-8 text-center text-gray-600 text-sm">
-                <p>&copy; 2025 Uncle Machine Shop. All rights reserved.</p>
+                <p>&copy; 2025 MachineBBK. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -365,8 +372,8 @@
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "Uncle Machine Shop",
-        "alternateName": "Uncle Machine Shop",
+        "name": "MachineBBK",
+        "alternateName": "MachineBBK",
         "url": "{{ request.scheme }}://{{ request.get_host }}",
         "description": "แพลตฟอร์มเครื่องจักรและอุปกรณ์ชั้นนำของไทย มีเครื่องจักรมากกว่า 10,000 รายการ",
         "potentialAction": {
@@ -381,7 +388,7 @@
     {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": "Uncle Machine Shop",
+        "name": "MachineBBK",
         "url": "{{ request.scheme }}://{{ request.get_host }}",
         "logo": "{{ request.scheme }}://{{ request.get_host }}/static/images/logo.png",
         "description": "แพลตฟอร์มเครื่องจักรและอุปกรณ์ชั้นนำของไทย",

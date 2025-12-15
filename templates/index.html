@@ -2,19 +2,19 @@
 {% load static %}
 {% load humanize %}
 
-{% block title %}Uncle Machine Shop - แพลตฟอร์มเครื่องจักร{% endblock %}
+{% block title %}MachineBBK - แพลตฟอร์มเครื่องจักร{% endblock %}
 
-{% block description %}Uncle Machine Shop แพลตฟอร์มเครื่องจักร มีเครื่องจักรมากกว่า 10,000 รายการ ครอบคลุมทุกหมวดหมู่ เข้าถึงได้ทุกที่ทุกเวลา{% endblock %}
+{% block description %}MachineBBK แพลตฟอร์มเครื่องจักร มีเครื่องจักรมากกว่า 10,000 รายการ ครอบคลุมทุกหมวดหมู่ เข้าถึงได้ทุกที่ทุกเวลา{% endblock %}
 
-{% block keywords %}เครื่องจักร, Machine, อุปกรณ์, Uncle Machine Shop, machine Thailand, เครื่องจักรออนไลน์, แพลตฟอร์มเครื่องจักรไทย, เครื่องจักรแนะนำ, เครื่องจักรมาใหม่{% endblock %}
+{% block keywords %}เครื่องจักร, Machine, อุปกรณ์, MachineBBK, machine Thailand, เครื่องจักรออนไลน์, แพลตฟอร์มเครื่องจักรไทย, เครื่องจักรแนะนำ, เครื่องจักรมาใหม่{% endblock %}
 
-{% block og_title %}Uncle Machine Shop - แพลตฟอร์มเครื่องจักร{% endblock %}
+{% block og_title %}MachineBBK - แพลตฟอร์มเครื่องจักร{% endblock %}
 
 {% block og_description %}เริ่มต้นการเลือกเครื่องจักรของคุณวันนี้ กับเครื่องจักรนับพันรายการ เข้าถึงได้ทุกอุปกรณ์ ซิงค์ข้ามอุปกรณ์{% endblock %}
 
 {% block og_type %}website{% endblock %}
 
-{% block twitter_title %}Uncle Machine Shop - แพลตฟอร์มเครื่องจักร{% endblock %}
+{% block twitter_title %}MachineBBK - แพลตฟอร์มเครื่องจักร{% endblock %}
 
 {% block twitter_description %}เริ่มต้นการเลือกเครื่องจักรของคุณวันนี้ กับเครื่องจักรนับพันรายการ เข้าถึงได้ทุกอุปกรณ์{% endblock %}
 
@@ -31,15 +31,19 @@
             
             <div class="relative z-10">
                 <h2 class="text-4xl lg:text-6xl font-bold mb-6">
-                    เริ่มต้นการเลือกเครื่องจักรของคุณวันนี้
+                    ค้นหาเครื่องจักร์สพาบดีได้ที่นี้
                 </h2>
                 <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
                     ลงทะเบียนฟรีและเริ่มเพลิดเพลินกับเครื่องจักรนับพันรายการทันที
                 </p>
-                <button class="bg-white text-black px-12 py-5 rounded-full font-bold text-xl hover:bg-gray-100 transition-all hover:scale-105 shadow-2xl">
-                    <i class="fas fa-rocket mr-2"></i>
-                    เริ่มต้นฟรี
-                </button>
+                <form action="{% url 'machines' %}" method="get" class="max-w-xl mx-auto flex gap-2">
+                    <input type="text" name="search" placeholder="พิมพ์ชื่อเครื่องจักรที่คุณต้องการ..." 
+                           class="flex-1 bg-white/10 backdrop-blur-md border border-white/20 text-white placeholder-gray-300 px-6 py-4 rounded-full focus:outline-none focus:ring-2 focus:ring-white">
+                    <button type="submit" class="bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition-all hover:scale-105 shadow-xl flex items-center">
+                        <i class="fas fa-search mr-2"></i>
+                        ค้นหา
+                    </button>
+                </form>
             </div>
         </div>
     </div>
@@ -143,11 +147,11 @@
                         <div class="font-bold text-indigo-600">฿{{ machine.price|intcomma }}</div>
                     </div>
 
-                    <form action="{% url 'cart_add' machine.id %}" method="post" class="mt-3 relative z-20">
+                    <form action="{% url 'machine_detail' machine.slug %}" method="post" class="mt-3 relative z-20">
                         {% csrf_token %}
                         <input type="hidden" name="quantity" value="1">
                         <button type="submit" class="w-full bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-black transition flex items-center justify-center">
-                            <i class="fas fa-cart-plus mr-2"></i>ใส่ตะกร้า
+                            <i class="fas fa-cart-plus mr-2"></i>รายละเอียดเพิ่มเติม
                         </button>
                     </form>
 
@@ -214,7 +218,7 @@
 <section class="py-20 bg-white">
     <div class="container mx-auto px-4 lg:px-8">
         <div class="text-center mb-16">
-            <h2 class="text-4xl lg:text-5xl font-bold mb-4">ทำไมต้อง Uncle Machine Shop?</h2>
+            <h2 class="text-4xl lg:text-5xl font-bold mb-4">ทำไมต้อง MachineBBK?</h2>
             <p class="text-xl text-gray-600">ประสบการณ์การเลือกเครื่องจักรที่ดีที่สุด</p>
         </div>
         
