@@ -290,7 +290,7 @@
             // Sync hidden inputs
             const formQty = document.getElementById('formQuantity');
             if (formQty) formQty.value = val;
-            
+
             const formQtyBuy = document.getElementById('formQuantityBuy');
             if (formQtyBuy) formQtyBuy.value = val;
         }
@@ -313,7 +313,7 @@
             b.classList.remove('opacity-100');
             b.classList.add('opacity-70');
         });
-        
+
         btn.classList.add('active', 'border-black', 'opacity-100');
         btn.classList.remove('border-transparent', 'opacity-70');
     }
@@ -323,22 +323,20 @@
     let lightboxImages = [];
 
     function initializeLightbox() {
-        // Collect all images (cover + additional images)
+        // Collect all images
         lightboxImages = [];
 
-        // Add cover image
+        // Cover image
         {% if machine.cover_image %}
-        lightboxImages.push('{{ machine.cover_image.url }}');
+        lightboxImages.push('{{ machine.cover_image.url|escapejs }}');
         {% endif %}
 
-        // Add additional images
-        {% if images %}
-            {% for img in images %}
-            lightboxImages.push('{{ img.image.url }}');
-            {% endfor %}
-        {% endif %}
+        // Additional images
+        {% for img in images %}
+        lightboxImages.push('{{ img.image.url|escapejs }}');
+        {% endfor %}
 
-        // Update total images count
+        // Update total
         document.getElementById('totalImages').textContent = lightboxImages.length;
     }
 

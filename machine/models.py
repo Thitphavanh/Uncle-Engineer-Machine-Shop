@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+import uuid
 
 
 class MachineCategory(models.Model):
@@ -46,14 +47,28 @@ class Machine(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
+            # Auto-generate slug from title
             base_slug = slugify(self.title)
+
+            # If slugify returns empty (e.g., Thai or special characters only)
+            # Use UUID as fallback
+            if not base_slug:
+                unique_id = str(uuid.uuid4().hex)[:12]
+                base_slug = f"machine-{unique_id}"
+
             slug = base_slug
             counter = 1
 
-            # Check if slug already exists and create unique slug
+            # Ensure uniqueness
             while Machine.objects.filter(slug=slug).exists():
-                slug = f"{base_slug}-{counter}"
-                counter += 1
+                if 'machine-' in base_slug and len(base_slug) > 20:
+                    # It's a UUID-based slug, generate new one
+                    unique_id = str(uuid.uuid4().hex)[:12]
+                    slug = f"machine-{unique_id}"
+                else:
+                    # It's a title-based slug, add counter
+                    slug = f"{base_slug}-{counter}"
+                    counter += 1
 
             self.slug = slug
         super().save(*args, **kwargs)
@@ -126,8 +141,6 @@ class OrderInquiry(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
-        verbose_name = "รายการติดต่อสั่งซื้อ"
-        verbose_name_plural = "รายการติดต่อสั่งซื้อ"
 
     def __str__(self):
         return f"{self.name} - {self.machine.title}"
