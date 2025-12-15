@@ -1,5 +1,5 @@
 from django import forms
-from .models import Machine, MachineImage, MachineCategory
+from .models import Machine, MachineImage, MachineCategory, OrderInquiry
 
 
 class MultipleFileInput(forms.ClearableFileInput):
