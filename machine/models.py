@@ -112,3 +112,22 @@ class OrderItem(models.Model):
 
     def get_total(self):
         return self.price * self.quantity
+
+
+class OrderInquiry(models.Model):
+    machine = models.ForeignKey(
+        Machine, on_delete=models.CASCADE, related_name="inquiries"
+    )
+    name = models.CharField(max_length=200, verbose_name="ชื่อผู้ติดต่อ")
+    phone = models.CharField(max_length=20, verbose_name="เบอร์โทรศัพท์")
+    details = models.TextField(verbose_name="รายละเอียด/คำถามเพิ่มเติม", blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="วันที่ติดต่อ")
+    is_contacted = models.BooleanField(default=False, verbose_name="ติดต่อกลับแล้ว")
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "รายการติดต่อสั่งซื้อ"
+        verbose_name_plural = "รายการติดต่อสั่งซื้อ"
+
+    def __str__(self):
+        return f"{self.name} - {self.machine.title}"

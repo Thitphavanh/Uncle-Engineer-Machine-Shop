@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.db import models
 from django.contrib.admin.views.decorators import staff_member_required
 from .models import Machine, MachineCategory, MachineImage
-from .forms import MachineForm
+from .forms import MachineForm, OrderInquiryForm
 
 
 def index(request):
@@ -151,6 +151,7 @@ def terms_of_service(request):
 
 # Cart Views
 from django.views.decorators.http import require_POST
+from django.http import JsonResponse
 from .cart import Cart
 
 @require_POST
@@ -290,3 +291,25 @@ def machine_upload(request):
     }
 
     return render(request, 'admin/machine_upload.html', context)
+
+
+@require_POST
+def submit_inquiry(request, machine_id):
+    machine = get_object_or_404(Machine, id=machine_id)
+    form = OrderInquiryForm(request.POST)
+    
+    if form.is_valid():
+        inquiry = form.save(commit=False)
+        inquiry.machine = machine
+        inquiry.save()
+        
+        return JsonResponse({
+            'status': 'success', 
+            'message': 'เราได้รับข้อมูลของคุณแล้ว ทางเราจะติดต่อกลับโดยเร็วที่สุด'
+        })
+    else:
+        return JsonResponse({
+            'status': 'error', 
+            'errors': form.errors,
+            'message': 'กรุณาตรวจสอบข้อมูลให้ถูกต้อง'
+        }, status=400)

@@ -14,6 +14,7 @@ urlpatterns = [
     path('cart/update/<int:product_id>/', views.cart_update, name='cart_update'),
     path('checkout/', views.checkout, name='checkout'),
     path("machine/<slug:slug>/", views.machine_detail, name="machine_detail"),
+    path("machine/<int:machine_id>/inquiry/", views.submit_inquiry, name="submit_inquiry"),
 
     # Authentication URLs
     path("login/", views.user_login, name="login"),

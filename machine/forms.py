@@ -81,5 +81,31 @@ class MachineForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # เพิ่ม empty label สำหรับ category dropdown
         self.fields['category'].empty_label = "-- เลือกหมวดหมู่ --"
+
+
+class OrderInquiryForm(forms.ModelForm):
+    class Meta:
+        model = OrderInquiry
+        fields = ["name", "phone", "details"]
+        widgets = {
+            "name": forms.TextInput(
+                attrs={
+                    "class": "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring focus:ring-black focus:ring-opacity-50 px-4 py-2 border",
+                    "placeholder": "ชื่อของคุณ",
+                }
+            ),
+            "phone": forms.TextInput(
+                attrs={
+                    "class": "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring focus:ring-black focus:ring-opacity-50 px-4 py-2 border",
+                    "placeholder": "เบอร์โทรศัพท์ติดต่อ",
+                }
+            ),
+            "details": forms.Textarea(
+                attrs={
+                    "class": "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring focus:ring-black focus:ring-opacity-50 px-4 py-2 border",
+                    "rows": 4,
+                    "placeholder": "รายละเอียดเพิ่มเติม หรือคำถามที่ต้องการสอบถาม",
+                }
+            ),
+        }

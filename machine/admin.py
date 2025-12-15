@@ -58,3 +58,12 @@ class OrderAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         # Prevent creating orders through admin - orders should only be created via checkout
         return False
+
+
+@admin.register(OrderInquiry)
+class OrderInquiryAdmin(admin.ModelAdmin):
+    list_display = ("machine", "name", "phone", "created_at", "is_contacted")
+    list_filter = ("is_contacted", "created_at")
+    search_fields = ("name", "phone", "details", "machine__title")
+    list_editable = ("is_contacted",)
+
