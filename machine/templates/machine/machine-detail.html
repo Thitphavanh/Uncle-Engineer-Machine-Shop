@@ -139,6 +139,40 @@
                 {% endwith %}
             </div>
             
+            <!-- Image Lightbox -->
+            <div id="imageLightbox" class="fixed inset-0 z-[100] hidden">
+                <!-- Backdrop -->
+                <div class="absolute inset-0 bg-black bg-opacity-95 transition-opacity" onclick="closeLightbox()"></div>
+
+                <!-- Close Button -->
+                <button onclick="closeLightbox()" class="absolute top-4 right-4 z-10 text-white hover:text-gray-300 transition">
+                    <i class="fas fa-times text-3xl"></i>
+                </button>
+
+                <!-- Main Image Container -->
+                <div class="relative w-full h-full flex items-center justify-center p-8">
+                    <img id="lightboxImage"
+                         src=""
+                         alt="Zoom Image"
+                         class="max-w-full max-h-full object-contain">
+
+                    <!-- Previous Button -->
+                    <button onclick="previousImage(event)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-75 text-white p-4 rounded-full transition">
+                        <i class="fas fa-chevron-left text-2xl"></i>
+                    </button>
+
+                    <!-- Next Button -->
+                    <button onclick="nextImage(event)" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-75 text-white p-4 rounded-full transition">
+                        <i class="fas fa-chevron-right text-2xl"></i>
+                    </button>
+
+                    <!-- Image Counter -->
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full">
+                        <span id="currentImageIndex">1</span> / <span id="totalImages">1</span>
+                    </div>
+                </div>
+            </div>
+
             <!-- Contact Modal -->
             <div id="contactModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
                 <div class="absolute inset-0 bg-black bg-opacity-50 transition-opacity" onclick="closeContactModal()"></div>
@@ -284,11 +318,86 @@
         btn.classList.remove('border-transparent', 'opacity-70');
     }
 
-    function openLightbox() {
-        // Simple lightbox implementation can be added here
-        // For now, just maybe a simple console log or alert as placeholder
-        // or functionality to view full screen
+    // --- Lightbox Logic ---
+    let currentLightboxIndex = 0;
+    let lightboxImages = [];
+
+    function initializeLightbox() {
+        // Collect all images (cover + additional images)
+        lightboxImages = [];
+
+        // Add cover image
+        const coverImage = '{{ machine.cover_image.url }}';
+        if (coverImage) {
+            lightboxImages.push(coverImage);
+        }
+
+        // Add additional images
+        {% for img in images %}
+            lightboxImages.push('{{ img.image.url }}');
+        {% endfor %}
+
+        // Update total images count
+        document.getElementById('totalImages').textContent = lightboxImages.length;
     }
+
+    function openLightbox() {
+        initializeLightbox();
+
+        // Get current main image to find its index
+        const mainImage = document.getElementById('mainImage');
+        const currentSrc = mainImage.src;
+
+        // Find index of current image
+        currentLightboxIndex = lightboxImages.findIndex(img => currentSrc.includes(img.split('/').pop()));
+        if (currentLightboxIndex === -1) currentLightboxIndex = 0;
+
+        // Show lightbox
+        const lightbox = document.getElementById('imageLightbox');
+        lightbox.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+
+        // Load current image
+        updateLightboxImage();
+    }
+
+    function closeLightbox() {
+        const lightbox = document.getElementById('imageLightbox');
+        lightbox.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+
+    function updateLightboxImage() {
+        const lightboxImage = document.getElementById('lightboxImage');
+        lightboxImage.src = lightboxImages[currentLightboxIndex];
+        document.getElementById('currentImageIndex').textContent = currentLightboxIndex + 1;
+    }
+
+    function previousImage(event) {
+        event.stopPropagation();
+        currentLightboxIndex = (currentLightboxIndex - 1 + lightboxImages.length) % lightboxImages.length;
+        updateLightboxImage();
+    }
+
+    function nextImage(event) {
+        event.stopPropagation();
+        currentLightboxIndex = (currentLightboxIndex + 1) % lightboxImages.length;
+        updateLightboxImage();
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        const lightbox = document.getElementById('imageLightbox');
+        if (!lightbox.classList.contains('hidden')) {
+            if (e.key === 'ArrowLeft') {
+                previousImage(e);
+            } else if (e.key === 'ArrowRight') {
+                nextImage(e);
+            } else if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        }
+    });
 
     function scrollToDescription() {
         document.getElementById('descriptionSection').scrollIntoView({ behavior: 'smooth' });
