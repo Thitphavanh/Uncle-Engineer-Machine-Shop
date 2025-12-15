@@ -4,7 +4,7 @@
 
 set -e
 
-domains=(129.212.238.63)
+domains=(machinebkk.com www.machinebkk.com)
 rsa_key_size=4096
 data_path="./certbot"
 email="loong.wissawakorn@gmail.com" # Change this to your email
