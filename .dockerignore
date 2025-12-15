@@ -64,3 +64,6 @@ docker-compose*.yml
 *.bak
 *.tmp
 node_modules/
+
+# Certbot
+certbot/
