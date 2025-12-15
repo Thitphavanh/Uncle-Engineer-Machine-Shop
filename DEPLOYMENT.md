@@ -110,13 +110,13 @@ sudo apt install -y curl git vim htop
 
 ```bash
 # สร้าง user ใหม่
-adduser machine
+adduser uncle-machine
 
 # เพิ่ม sudo privileges
-usermod -aG sudo machine
+usermod -aG sudo uncle-machine
 
-# สลับเป็น user machine
-su - machine
+# สลับเป็น user uncle-machine
+su - uncle-machine
 ```
 
 ---
